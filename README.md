@@ -5,7 +5,7 @@ Este proyecto implementa una base de datos utilizando **Strapi** y **SQLite** pa
 
 ## Tecnologias utilizadas
 - **Strapi** (BackEnd para la API)
-- **SQLite** (Base de datos)
+- **MySQL** (Base de datos relacional)
 
 ## Entidades y Relaciones
 - **Estudiantes**: ID, nombre, apellido, fecha de nacimiento, correo, telefono.
