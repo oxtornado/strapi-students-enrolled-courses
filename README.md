@@ -23,8 +23,8 @@ Este proyecto implementa una base de datos utilizando **Strapi** y **SQLite** pa
 ## Instalacion
 1. Clona el repositorio:
    ```bash
-   git clone <repo-url>
-   cd <repo-folder>
+   git clone git@github.com:oxtornado/strapi-students-enrolled-courses.git
+   cd students-enrolled-courses
    ```
 2. Instala las dependencias:
    ```bash
