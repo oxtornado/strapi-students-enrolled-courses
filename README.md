@@ -95,5 +95,5 @@ También disponible para un periodo específico:
    ```
 
 ## 📩 Contacto
-Si tienes preguntas o sugerencias, puedes escribirme a [tu.email@ejemplo.com](mailto:tu.email@ejemplo.com).
+Si tienes preguntas o sugerencias, puedes escribirme a [mi correro electronico](mailto:dnielussa@gmail.com).
 
