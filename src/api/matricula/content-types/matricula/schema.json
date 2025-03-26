@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "matriculas",
+  "info": {
+    "singularName": "matricula",
+    "pluralName": "matriculas",
+    "displayName": "Matricula",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "fechaMatricula": {
+      "type": "date"
+    },
+    "curso": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::curso.curso",
+      "inversedBy": "matriculas"
+    },
+    "estudiante": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::estudiante.estudiante",
+      "inversedBy": "matriculas"
+    },
+    "periodoMatricula": {
+      "type": "integer"
+    }
+  }
+}

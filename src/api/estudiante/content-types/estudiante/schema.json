@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "estudiantes",
+  "info": {
+    "singularName": "estudiante",
+    "pluralName": "estudiantes",
+    "displayName": "Estudiante"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "nombreEstudiante": {
+      "type": "string"
+    },
+    "apellidoEstudiante": {
+      "type": "string"
+    },
+    "fechaNacimientoEstudiante": {
+      "type": "date"
+    },
+    "correoElectronicoEstudiante": {
+      "type": "email"
+    },
+    "telefonoEstudiante": {
+      "type": "integer"
+    },
+    "matriculas": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::matricula.matricula",
+      "mappedBy": "estudiante"
+    }
+  }
+}

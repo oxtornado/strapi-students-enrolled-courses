@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Gestion de Matriculas de Estudiantes
 
 ## Descripcion
@@ -46,3 +47,53 @@ Los datos de prueba deben insertarse en las tablas de la base de datos usando la
 ## Autor
 oxtornado
 
+=======
+## Consultas esperadas
+1. Lista de estudiantes matriculados a un curso específico
+        {
+            method: 'GET',
+            path: '/matriculas/curso/:curso',
+            handler: 'matricula.find',
+            config: {
+                policies: []
+            }
+        },
+        {
+            method: 'GET',
+            path: '/matriculas/curso/:curso/periodo/:periodo',
+            handler: 'matricula.find',
+            config: {
+                policies: []
+            }
+        }
+    La ruta /matriculas/curso/:curso devuelve una lista de estudiantes matriculados a un curso específico.
+    La ruta /matriculas/curso/:curso/periodo/:periodo devuelve una lista de estudiantes matriculados a un curso específico en un periodo específico.
+
+    Se encuentra el código de la ruta en src/api/matricula/routes/matricula.ts
+
+2. Verificar cantidad de estudiantes matriculados a un curso específico
+        {
+            method: 'GET',
+            path: '/matriculas/curso/:curso/periodo/:periodo/estudiante/:estudiante',
+            handler: 'matricula.find',
+            config: {
+                policies: []
+            }
+        }
+        La ruta /matriculas/curso/:curso/periodo/:periodo/estudiante/:estudiante devuelve la cantidad de estudiantes matriculados a un curso específico en un periodo específico.
+
+        Se encuentra el código de la ruta en src/api/matricula/routes/matricula.ts
+
+3. Lista de cursos en los que esta matriculado un estudiante específico
+        {
+            method: 'GET',
+            path: '/matriculas/curso/:curso/estudiante/:estudiante',
+            handler: 'matricula.find',
+            config: {
+                policies: []
+            }
+        }
+        La ruta /matriculas/curso/:curso/estudiante/:estudiante devuelve la lista de cursos en los que esta matriculado un estudiante específico.
+        
+        Se encuentra el código de la ruta en src/api/matricula/routes/matricula.ts
+>>>>>>> b82eba8 (first commit !!!)

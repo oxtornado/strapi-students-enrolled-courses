@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cursos",
+  "info": {
+    "singularName": "curso",
+    "pluralName": "cursos",
+    "displayName": "Curso",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "nombreCurso": {
+      "type": "string"
+    },
+    "descripcionCurso": {
+      "type": "string"
+    },
+    "fechaInicioCurso": {
+      "type": "date"
+    },
+    "fechaFinCurso": {
+      "type": "date"
+    },
+    "creditosCurso": {
+      "type": "integer"
+    },
+    "capacidadCurso": {
+      "type": "integer"
+    },
+    "matriculas": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::matricula.matricula",
+      "mappedBy": "curso"
+    },
+    "periodoCurso": {
+      "type": "integer"
+    }
+  }
+}
