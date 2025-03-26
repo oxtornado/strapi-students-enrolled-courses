@@ -1,99 +1,111 @@
-<<<<<<< HEAD
-# Gestion de Matriculas de Estudiantes
+🎓 Gestión de Matrículas de Estudiantes
 
-## Descripcion
-Este proyecto implementa una base de datos utilizando **Strapi** y **SQLite** para gestionar la matriculacion de estudiantes en distintos cursos ofrecidos por una institucion educativa.
+Este proyecto implementa una API con Strapi y SQLite para gestionar la matrícula de estudiantes en cursos ofrecidos por una institución educativa.
 
-## Tecnologias utilizadas
-- **Strapi** (BackEnd para la API)
-- **MySQL** (Base de datos relacional)
+📌 Objetivo
 
-## Entidades y Relaciones
-- **Estudiantes**: ID, nombre, apellido, fecha de nacimiento, correo, telefono.
-- **Cursos**: ID, nombre, descripcion, fecha de inicio y finalizacion, creditos.
-- **Matriculas**: ID, estudiante, curso, fecha de matricula.
+Facilitar la gestión y consulta de estudiantes matriculados en cursos, asegurando la correcta inscripción y cumplimiento de reglas de negocio.
 
-### Relaciones
-- Un **estudiante** puede matricularse en varios cursos.
-- Un **curso** puede tener varios estudiantes matriculados.
+🛠️ Tecnologías utilizadas
 
-## Reglas de Negocio
-1. Un estudiante no puede matricularse mas de una vez en el mismo curso durante el mismo periodo.
-2. Cada curso tiene una capacidad maxima de estudiantes.
+Strapi (Backend CMS)
 
-## Instalacion
-1. Clona el repositorio:
-   ```bash
-   git clone git@github.com:oxtornado/strapi-students-enrolled-courses.git
-   cd strapi-students-enrolled-courses
-   ```
-2. Instala las dependencias:
-   ```bash
-   npm install
-   ```
-3. Ejecuta Strapi en desarrollo:
-   ```bash
-   npm run develop
-   ```
+SQLite (Base de datos ligera)
 
-## Datos de prueba
-Los datos de prueba deben insertarse en las tablas de la base de datos usando la interfaz de Strapi o mediante scripts SQL.
+Node.js y JavaScript
 
-## Consultas esperadas
-- Obtener la lista de estudiantes en un curso especifico.
-- Contar cuantos estudiantes estan matriculados en un curso.
-- Consultar en que cursos esta matriculado un estudiante especifico.
+🏗️ Modelo de Datos
 
-## Autor
-oxtornado
+Estudiantes: Nombre, apellido, fecha de nacimiento, correo electrónico, teléfono.
 
-=======
-## Consultas esperadas
-1. Lista de estudiantes matriculados a un curso específico
-        {
-            method: 'GET',
-            path: '/matriculas/curso/:curso',
-            handler: 'matricula.find',
-            config: {
-                policies: []
-            }
-        },
-        {
-            method: 'GET',
-            path: '/matriculas/curso/:curso/periodo/:periodo',
-            handler: 'matricula.find',
-            config: {
-                policies: []
-            }
-        }
-    La ruta /matriculas/curso/:curso devuelve una lista de estudiantes matriculados a un curso específico.
-    La ruta /matriculas/curso/:curso/periodo/:periodo devuelve una lista de estudiantes matriculados a un curso específico en un periodo específico.
+Cursos: Nombre, descripción, fecha de inicio, fecha de finalización, créditos.
 
-    Se encuentra el código de la ruta en src/api/matricula/routes/matricula.ts
+Matrículas: Relaciona estudiantes y cursos con fecha de inscripción.
 
-2. Verificar cantidad de estudiantes matriculados a un curso específico
-        {
-            method: 'GET',
-            path: '/matriculas/curso/:curso/periodo/:periodo/estudiante/:estudiante',
-            handler: 'matricula.find',
-            config: {
-                policies: []
-            }
-        }
-        La ruta /matriculas/curso/:curso/periodo/:periodo/estudiante/:estudiante devuelve la cantidad de estudiantes matriculados a un curso específico en un periodo específico.
+Relaciones:
 
-        Se encuentra el código de la ruta en src/api/matricula/routes/matricula.ts
+Un estudiante puede matricularse en varios cursos (N:M).
 
-3. Lista de cursos en los que esta matriculado un estudiante específico
-        {
-            method: 'GET',
-            path: '/matriculas/curso/:curso/estudiante/:estudiante',
-            handler: 'matricula.find',
-            config: {
-                policies: []
-            }
-        }
-        La ruta /matriculas/curso/:curso/estudiante/:estudiante devuelve la lista de cursos en los que esta matriculado un estudiante específico.
-        
-        Se encuentra el código de la ruta en src/api/matricula/routes/matricula.ts
->>>>>>> b82eba8 (first commit !!!)
+Un curso puede tener múltiples estudiantes inscritos (N:M).
+
+📜 Reglas de negocio
+
+Un estudiante no puede matricularse dos veces en el mismo curso dentro del mismo periodo.
+
+Cada curso tiene un límite de capacidad para matriculación.
+
+🔍 Consultas esperadas
+
+1️⃣ Lista de estudiantes matriculados en un curso específico
+
+{
+    "method": "GET",
+    "path": "/matriculas/curso/:curso",
+    "handler": "matricula.find",
+    "config": {
+        "policies": []
+    }
+}
+
+📌 Ruta: src/api/matricula/routes/matricula.ts
+
+También disponible para un periodo específico:
+
+{
+    "method": "GET",
+    "path": "/matriculas/curso/:curso/periodo/:periodo",
+    "handler": "matricula.find",
+    "config": {
+        "policies": []
+    }
+}
+
+2️⃣ Verificar la cantidad de estudiantes matriculados en un curso
+
+{
+    "method": "GET",
+    "path": "/matriculas/curso/:curso/periodo/:periodo/estudiante/:estudiante",
+    "handler": "matricula.find",
+    "config": {
+        "policies": []
+    }
+}
+
+📌 Ruta: src/api/matricula/routes/matricula.ts
+
+3️⃣ Lista de cursos en los que está matriculado un estudiante
+
+{
+    "method": "GET",
+    "path": "/matriculas/curso/:curso/estudiante/:estudiante",
+    "handler": "matricula.find",
+    "config": {
+        "policies": []
+    }
+}
+
+📌 Ruta: src/api/matricula/routes/matricula.ts
+
+🚀 Instalación y ejecución
+
+Clonar el repositorio:
+
+git clone https://github.com/tu-repo/matriculas-estudiantes.git
+
+Instalar dependencias:
+
+cd matriculas-estudiantes
+npm install
+
+Iniciar el servidor Strapi:
+
+npm run develop
+
+Acceder a la interfaz de administración de Strapi en:
+
+http://localhost:1337/admin
+
+📩 Contacto
+
+Si tienes preguntas o sugerencias, puedes escribirme a (mi correo electrónico)[mailto:dnielussa@gmail.com]. 😊
+
