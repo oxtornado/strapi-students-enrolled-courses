@@ -68,7 +68,7 @@ También disponible para un periodo específico:
     "handler": "matricula.find",
     "config": {
         "policies": []
-    }
+    }aa
 }
 
 📌 Ruta: src/api/matricula/routes/matricula.ts
