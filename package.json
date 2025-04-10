@@ -22,10 +22,6 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.0.0",
-<<<<<<< HEAD
-=======
-    "strapi-plugin-generate-data": "^2.0.2",
->>>>>>> b82eba8 (first commit !!!)
     "styled-components": "^6.0.0"
   },
   "devDependencies": {
@@ -39,10 +35,6 @@
     "npm": ">=6.0.0"
   },
   "strapi": {
-<<<<<<< HEAD
     "uuid": "22e43d39-7b14-48c0-af46-bec540a7c667"
-=======
-    "uuid": "bb2ee644-5614-4be0-b321-a7590844f289"
->>>>>>> b82eba8 (first commit !!!)
   }
 }
