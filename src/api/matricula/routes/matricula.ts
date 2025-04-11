@@ -59,7 +59,7 @@ export default {
         {
             method: 'GET',
             path: '/matriculas/curso/:curso',
-            handler: 'matricula.find',
+            handler: 'matricula.mostrarCursosMatriculados',
             config: {
                 policies: []
             }

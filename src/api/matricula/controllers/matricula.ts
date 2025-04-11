@@ -55,6 +55,29 @@ export default factories.createCoreController('api::matricula.matricula', ({ str
 
         const matricula = await strapi.db.query('api::matricula.matricula').delete({ where: { id } });
         return { matricula };
+    },
+    // funcion para mostrar estudiantes matriculados a un curso en especifico en un periodo
+    async mostrarEstudiantesMatriculados(ctx) {
+        const { curso, periodo } = ctx.params;
+        const matriculas = await strapi.db.query('api::matricula.matricula').findMany({ where: { curso, periodo } });
+        const estudiantes = matriculas.map(matricula => matricula.estudiante);
+        return ctx.send({ estudiantes });
+    },
+    
+    // funcion para mostrar estudiantes matriculados a un curso en especifico en un periodo
+    async mostrarEstudiantesMatriculadosEnPeriodo(ctx) {
+        const { curso, periodo } = ctx.params;
+        const matriculas = await strapi.db.query('api::matricula.matricula').findMany({ where: { curso, periodo } });
+        const estudiantes = matriculas.map(matricula => matricula.estudiante);
+        return estudiantes;
+    },
+    
+    // Primera funcion para mostrar cursos matriculados a un estudiante en especifico
+    async mostrarCursosMatriculados(ctx) {
+        const { estudiante } = ctx.params;
+        const matriculas = await strapi.db.query('api::matricula.matricula').findMany({ where: { estudiante } });
+        const cursos = matriculas.map(matricula => matricula.curso);
+        return ctx.send({ cursos });
     }
 }));
 
@@ -74,25 +97,4 @@ async function hayCuposDisponibles(strapi, curso) {
     
     const matriculados = await strapi.db.query('api::matricula.matricula').count({ where: { curso } });
     return matriculados < cursoInfo.capacidadCurso;
-}
-
-// funcion para mostrar estudiantes matriculados a un curso en especifico en un periodo
-async function mostrarEstudiantesMatriculados(strapi, curso, periodo) {
-    const matriculas = await strapi.db.query('api::matricula.matricula').findMany({ where: { curso, periodo } });
-    const estudiantes = matriculas.map(matricula => matricula.estudiante);
-    return estudiantes;
-}
-
-// funcion para mostrar estudiantes matriculados a un curso en especifico en un periodo
-async function mostrarEstudiantesMatriculadosEnPeriodo(strapi, curso, periodo) {
-    const matriculas = await strapi.db.query('api::matricula.matricula').findMany({ where: { curso, periodo } });
-    const estudiantes = matriculas.map(matricula => matricula.estudiante);
-    return estudiantes;
-}
-
-// funcion para mostrar cursos en los que esta matriculado un estudiante específico
-async function mostrarCursosMatriculados(strapi, estudiante) {
-    const matriculas = await strapi.db.query('api::matricula.matricula').findMany({ where: { estudiante } });
-    const cursos = matriculas.map(matricula => matricula.curso);
-    return cursos;
 }
