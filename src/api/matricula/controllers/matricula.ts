@@ -1,27 +1,56 @@
 import { factories } from '@strapi/strapi';
 
 export default factories.createCoreController('api::matricula.matricula', ({ strapi }) => ({
-    async create(ctx) {
-        const { curso, estudiante, fechaMatricula } = ctx.request.body;
-        const fecha = new Date(fechaMatricula);
-        const periodo = determinarPeriodo(fecha);
-
-        // Validaciones
-        if (await existeMatricula(strapi, curso, estudiante, periodo)) {
-            return ctx.badRequest('El estudiante ya está inscrito en este curso y periodo.');
+  async create(ctx) {
+    try {
+      const body = ctx.request.body;
+      console.log('📥 Body recibido:', body);
+  
+      // Ajustar los nombres de los campos para que coincidan con tu petición
+      const { curso, estudiante, fechaMatricula } = body.data || {};
+      const fecha = new Date(fechaMatricula);
+      
+      // Usar el periodo proporcionado en la petición
+      const periodo = body.data.periodo || determinarPeriodo(fecha);
+  
+      console.log('📅 Fecha de matrícula:', fecha);
+      console.log('📘 Curso ID:', curso);
+      console.log('👤 Estudiante ID:', estudiante);
+      console.log('🗓️ Periodo:', periodo);
+  
+      const yaExiste = await existeMatricula(strapi, curso, estudiante, periodo);
+      console.log('🧐 ¿Ya existe matrícula?:', yaExiste);
+  
+      if (yaExiste) {
+        return ctx.badRequest('El estudiante ya está inscrito en este curso y periodo.');
+      }
+  
+      // Pasar el periodo específico a la función de verificación de cupos
+      const cupos = await hayCuposDisponibles(strapi, curso, periodo);
+      console.log('📊 ¿Hay cupos disponibles?:', cupos);
+  
+      if (!cupos) {
+        return ctx.badRequest('No hay cupos disponibles en este curso.');
+      }
+  
+      // Mantener coherencia con los nombres de campos
+      const matricula = await strapi.db.query('api::matricula.matricula').create({
+        data: { 
+          curso, 
+          estudiante, 
+          periodo,
+          fechaMatricula: fecha
         }
-
-        if (!(await hayCuposDisponibles(strapi, curso))) {
-            return ctx.badRequest('No hay cupos disponibles en este curso.');
-        }
-
-        // Crear matrícula
-        const matricula = await strapi.db.query('api::matricula.matricula').create({
-            data: { curso, estudiante, periodo, fechaMatricula: fecha }
-        });
-
-        return { matricula };
-    },
+      });
+  
+      console.log('✅ Matrícula creada:', matricula);
+  
+      return { data: matricula }; // Formato estándar de respuesta de Strapi
+    } catch (error) {
+      console.error('💥 ERROR EN CREATE:', error);
+      return ctx.internalServerError('Error interno al crear la matrícula.');
+    }
+  },
 
     async find(ctx) {
         const { curso, periodo } = ctx.params;
@@ -91,10 +120,36 @@ async function existeMatricula(strapi, curso, estudiante, periodo) {
     return !!matricula;
 }
 
-async function hayCuposDisponibles(strapi, curso) {
-    const cursoInfo = await strapi.db.query('api::curso.curso').findOne({ where: { id: curso }, select: ['capacidadCurso'] });
-    if (!cursoInfo) return false;
+async function hayCuposDisponibles(strapi, curso, periodo) {
+  console.log(`Verificando cupos para curso ${curso} en periodo ${periodo}`);
+  
+  if (!curso) {
+    console.log('⚠️ ID de curso no proporcionado');
+    return false;
+  }
+  
+  try {
+    const cursoInfo = await strapi.db.query('api::curso.curso').findOne({ 
+      where: { id: curso }, 
+      select: ['capacidadCurso'] 
+    });
     
-    const matriculados = await strapi.db.query('api::matricula.matricula').count({ where: { curso } });
+    console.log('Información del curso:', cursoInfo);
+    
+    if (!cursoInfo) {
+      console.log(`⚠️ No se encontró el curso con ID: ${curso}`);
+      return false;
+    }
+    
+    const matriculados = await strapi.db.query('api::matricula.matricula').count({ 
+      where: { curso, periodo } 
+    });
+    
+    console.log(`Capacidad del curso: ${cursoInfo.capacidadCurso}, Matriculados en periodo ${periodo}: ${matriculados}`);
+    
     return matriculados < cursoInfo.capacidadCurso;
+  } catch (error) {
+    console.error('Error al verificar cupos disponibles:', error);
+    return false;
+  }
 }

@@ -417,7 +417,8 @@ export interface ApiEstudianteEstudiante extends Struct.CollectionTypeSchema {
   };
   attributes: {
     apellidoEstudiante: Schema.Attribute.String;
-    correoElectronicoEstudiante: Schema.Attribute.Email;
+    correoElectronicoEstudiante: Schema.Attribute.Email &
+      Schema.Attribute.Unique;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -461,14 +462,14 @@ export interface ApiMatriculaMatricula extends Struct.CollectionTypeSchema {
       'manyToOne',
       'api::estudiante.estudiante'
     >;
-    fechaMatricula: Schema.Attribute.Date;
+    fecha_matricula: Schema.Attribute.Date;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::matricula.matricula'
     > &
       Schema.Attribute.Private;
-    periodoMatricula: Schema.Attribute.Integer;
+    periodo: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

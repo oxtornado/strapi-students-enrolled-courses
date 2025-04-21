@@ -20,7 +20,8 @@
       "type": "date"
     },
     "correoElectronicoEstudiante": {
-      "type": "email"
+      "type": "email",
+      "unique": true
     },
     "telefonoEstudiante": {
       "type": "integer"

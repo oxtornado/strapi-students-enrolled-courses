@@ -11,7 +11,7 @@
     "draftAndPublish": true
   },
   "attributes": {
-    "fechaMatricula": {
+    "fecha_matricula": {
       "type": "date"
     },
     "curso": {
@@ -26,7 +26,7 @@
       "target": "api::estudiante.estudiante",
       "inversedBy": "matriculas"
     },
-    "periodoMatricula": {
+    "periodo": {
       "type": "integer"
     }
   }
