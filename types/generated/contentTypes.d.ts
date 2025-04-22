@@ -451,7 +451,7 @@ export interface ApiMatriculaMatricula extends Struct.CollectionTypeSchema {
     singularName: 'matricula';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
